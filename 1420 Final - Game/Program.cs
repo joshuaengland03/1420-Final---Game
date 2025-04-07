@@ -1,5 +1,7 @@
 ﻿using System;
 using static System.Net.Mime.MediaTypeNames;
+using System.IO;
+using System.Text.Json;
 using static Horizon.Tools;
 using Horizon;
 
@@ -7,7 +9,8 @@ using Horizon;
 
 class Program
 {
-    public static Save File = new Save();
+    public static string FilePath = "C:/Users/joshua.england1/source/repos/1420 Final - Game/1420 Final - Game/save.json";
+    public static Save Save = new Save();
     public static Character Mom;
     public static Character Player;
     public static void Main(string[] args)
@@ -36,26 +39,27 @@ class Program
             else if (userInput == "t")
             {
                 PS("TEST MODE ENABLED", 1);
-                File.Room = Room.Bedroom;
-                File.PlayerName = "PlayerTest";
+                Save.Room = Room.Bedroom;
+                Save.PlayerName = "PlayerTest";
                 break;
             }
             else if (userInput == "title")
             {
                 Title();
-                File.Room = Room.Bedroom;
-                File.PlayerName = "PlayerTest";
+                Save.Room = Room.Bedroom;
+                Save.PlayerName = "PlayerTest";
                 break;
             }
             P("Invalid Input. Please type 'Y' or 'N'");
         }
 
-        Mom = new Character("Mom", File.PlayerName);
-        Player = new Character("You", File.PlayerName);
+        Mom = new Character("Mom", Save.PlayerName);
+        Player = new Character("You", Save.PlayerName);
 
+        Bedroom.Start();
         while (true)
         {
-            switch (File.Room)
+            switch (Save.Room)
             {
                 case Room.Bedroom:
                     Bedroom.Run();
@@ -108,15 +112,15 @@ class Program
         Console.Clear();
         PS("What is your name?", 40);
         string input = Console.ReadLine();
-        File.PlayerName = input;
-        File.Room = Room.Bedroom;
+        Save.PlayerName = input;
+        Save.Room = Room.Bedroom;
         Console.Clear();
-        Dialogue.BuildDialogue(File.PlayerName);
-        PS($"\"{File.PlayerName}\"", 40);
+        Dialogue.BuildDialogue(Save.PlayerName);
+        PS($"\"{Save.PlayerName}\"", 40);
         Thread.Sleep(1000);
         PS("What an interesting name...", 40);
         Thread.Sleep(1500);
-        PS($"Well, {File.PlayerName}, you better wake up.", 40);
+        PS($"Well, {Save.PlayerName}, you better wake up.", 40);
         Thread.Sleep(1500);
         PS($"You have things to do.", 40);
         Thread.Sleep(1500);
@@ -124,17 +128,15 @@ class Program
         Title();
         Thread.Sleep(5000);
         Console.Clear();
-        DS(Mom, 1, 40);
-        Thread.Sleep(1000);
-        DS(Mom, 2, 40);
-        Thread.Sleep(1000);
-        DS(Mom, 3, 40);
+
     }
 
     public static void LoadSave()
     {
         PS("Loading from file...");
+        string jsonString = File.ReadAllText(FilePath);
     }
+
     public static void Title()
     {
         PS("  _____                       _    __          __  _____   _____  ");
