@@ -6,48 +6,74 @@ using System.Threading.Tasks;
 using static Horizon.Tools;
 using Horizon;
 using System.Diagnostics;
+using System.Linq.Expressions;
 
 public class World
 {
     public static int ChoiceNumber { get; set; }
+    public static Dictionary<int, string> Choices { get; set; } = new Dictionary<int, string>();
+    public static Dictionary<string, string> Options { get; set; } = new Dictionary<string, string>
+    {
+        { "I", "Check Inventory" },
+        { "S", "Save Game" },
+        { "Q", "Quit" }
+    };
+
     public static int Choose()
     {
-        string input = Console.ReadLine().ToLower();
-
-        switch (input)
+        PS("You are in the Bedroom");
+        P("");
+        foreach (var choice in Choices)
         {
-            case "1":
-                return 1;
+            if (choice.Key > ChoiceNumber)
+            {
                 break;
-            case "2":
-                return 2;
-                break;
-            case "3":
-                return 3;
-                break;
-            case "4":
-                return 4;
-                break;
-            case "I":
-                return 10;
-                break;
-            case "S":
-                return 11;
-            case "Q":
-                return 12;
-                break;
-            default:
-                P("Invalid input, try again.");
-                Choose();
-                return 0;
-                break;
+            }
+            else
+            {
+                PS($"{choice.Key}: {choice.Value}");
+            }
         }
-    }
-
-    public static int CleanChoice()
-    {
-        int choice = 0;
-        return choice;
+        P("");
+        foreach (var option in Options)
+        {
+            PS($"{option.Key}: {option.Value}");
+        }
+        P("");
+        while (true)
+        {
+            string input = Console.ReadLine().ToLower();
+            if (int.TryParse(input, out int number))
+            {
+                if (number <= ChoiceNumber && number > 0)
+                {
+                    return number;
+                }
+                else
+                {
+                    P("Number invalid. Try again.");
+                }
+            }
+            else
+            {
+                if (input == "i")
+                {
+                    return 11;
+                }
+                else if (input == "s")
+                {
+                    return 12;
+                }
+                else if (input == "q")
+                {
+                    return 13;
+                }
+                else
+                {
+                    P("Option invalid. Try again.");
+                }
+            }
+        }
     }
 }
 
@@ -62,25 +88,47 @@ public class Bedroom : World
         DS(Program.Mom, 3, 40);
         Thread.Sleep(1000);
         Console.Clear();
-        PS("You get out of bed and get dressed");
+        PS("You get out of bed and get dressed.");
         Thread.Sleep(1000);
     }
     public static void Run()
     {
-        Console.WriteLine("You are in the Bedroom");
-        while (true)
+        ChoiceNumber = 4;
+        Choices.Clear();
+
+        Choices.Add(1, "Open the drawer");
+        Choices.Add(2, "Look in the mirror");
+        Choices.Add(3, "Look under your bed");
+        Choices.Add(4, "Leave the room");
+        Choices.Add(5, "BUG, SHOULD NOT APPEAR");
+
+        int choice = Choose();
+        P($"{choice}");
+        switch (choice)
         {
-            PS($"What would you like to do?");
-            PS($"1. Open the drawer");
-            PS($"2. Look in the mirror");
-            PS($"3. Look under your bed");
-            PS($"4. Leave the room");
-            P("");
-            P("");
-            PS($"I. Check Inventory");
-            PS($"S. Save");
-            PS($"Q. Quit");
-            Choose();
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+            case 11:
+
+                break;
+            case 12:
+
+                break;
+            case 13:
+
+                break;
+            default:
+                break;
         }
 
     }

@@ -41,6 +41,7 @@ class Program
                 PS("TEST MODE ENABLED", 1);
                 Save.Room = Room.Bedroom;
                 Save.PlayerName = "PlayerTest";
+                LoadCharacters();
                 break;
             }
             else if (userInput == "title")
@@ -48,15 +49,13 @@ class Program
                 Title();
                 Save.Room = Room.Bedroom;
                 Save.PlayerName = "PlayerTest";
+                LoadCharacters();
                 break;
             }
             P("Invalid Input. Please type 'Y' or 'N'");
         }
 
-        Mom = new Character("Mom", Save.PlayerName);
-        Player = new Character("You", Save.PlayerName);
 
-        Bedroom.Start();
         while (true)
         {
             switch (Save.Room)
@@ -114,6 +113,7 @@ class Program
         string input = Console.ReadLine();
         Save.PlayerName = input;
         Save.Room = Room.Bedroom;
+        LoadCharacters();
         Console.Clear();
         Dialogue.BuildDialogue(Save.PlayerName);
         PS($"\"{Save.PlayerName}\"", 40);
@@ -128,7 +128,13 @@ class Program
         Title();
         Thread.Sleep(5000);
         Console.Clear();
+        Bedroom.Start();
+    }
 
+    public static void LoadCharacters()
+    {
+        Mom = new Character("Mom", Save.PlayerName);
+        Player = new Character("You", Save.PlayerName);
     }
 
     public static void LoadSave()
@@ -139,13 +145,13 @@ class Program
 
     public static void Title()
     {
-        PS("  _____                       _    __          __  _____   _____  ");
-        PS(" |  ___| (_)                 | |   \\ \\        / / |_   _| |  __ \\ ");
-        PS(" | |__    _   _ __     __ _  | |    \\ \\  /\\  / /    | |   | |__) |");
-        PS(" |  __|  | | | '_ \\   / _` | | |     \\ \\/  \\/ /     | |   |  ___/ ");
-        PS(" | |     | | | | | | | (_| | | |      \\  /\\  /     _| |_  | |     ");
-        PS(" |_|     |_| |_| |_|  \\__,_| |_|       \\/  \\/     |_____| |_|     ");
-        P("");
+        PS("   _____           _   _                 _     _         ");
+        PS("  / ____|         | | | |               | |   (_)        ");
+        PS(" | |        ___   | | | |   ___    ___  | |_   _    ___  ");
+        PS(" | |       / _ \\  | | | |  / _ \\  / __| | __| | |  / _ \\ ");
+        PS(" | |____  | (_) | | | | | |  __/ | (__  | |_  | | | (_) |");
+        PS("  \\_____|  \\___/  |_| |_|  \\___|  \\___|  \\__| |_|  \\___/ ");
+        P("                                                         ");
         PS("By Josh England, 2025", 40);
     }
 }
