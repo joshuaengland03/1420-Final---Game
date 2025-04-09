@@ -26,17 +26,27 @@ namespace Horizon
 
     public static class Tools
     {
+        // Prints and ends on a new line
         public static void P(string line)
         {
             Console.WriteLine(line);
         }
 
+        // Prints on line character by character, does not end on a new line
+        public static void PLS(string line, int delay = 0, int speed = 1)
+        {
+            foreach (char c in line)
+            {
+                Console.Write(c);
+                Thread.Sleep(speed);
+            }
+            Thread.Sleep(delay);
+        }
 
         public static void D(Character character, int key)
         {
             P($"{character.Name}: {character.CDialogue[key]}");
         }
-
 
         public static void DS(Character character, int key, int speed = 1)
         {

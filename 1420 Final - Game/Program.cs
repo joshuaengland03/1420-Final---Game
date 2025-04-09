@@ -38,6 +38,7 @@ class Program
             }
             else if (userInput == "t")
             {
+                Console.Clear();
                 PS("TEST MODE ENABLED", 1);
                 Save.Room = Room.Bedroom;
                 Save.PlayerName = "PlayerTest";
