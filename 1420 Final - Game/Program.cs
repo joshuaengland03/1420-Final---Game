@@ -11,14 +11,13 @@ class Program
 {
     public static string FilePath = "C:/Users/joshua.england1/source/repos/1420 Final - Game/1420 Final - Game/save.json";
     public static Save Save = new Save();
+    public static bool DebugMode { get; set; }
     public static Character Mom;
     public static Character Player;
     public static void Main(string[] args)
     {
         string userInput = "";
-
-
-
+        DebugMode = false;
         // TODO: Load save file "File" from a json file if the user needs it to
         P("Would you like to start from a save point? (Y/N)");
         while (true)
@@ -33,7 +32,17 @@ class Program
             else if (userInput == "n")
             {
                 PS("Initializing...       ", 75);
-                InitializeNew();
+                Begin();
+                break;
+            }
+            else if (userInput == "d")
+            {
+                Console.Clear();
+                DebugMode = true;
+                PS("DEBUG MODE ENABLED", 1);
+                Save.Room = Room.Bedroom;
+                Save.PlayerName = "DEBUG";
+                LoadCharacters();
                 break;
             }
             else if (userInput == "t")
@@ -41,7 +50,7 @@ class Program
                 Console.Clear();
                 PS("TEST MODE ENABLED", 1);
                 Save.Room = Room.Bedroom;
-                Save.PlayerName = "PlayerTest";
+                Save.PlayerName = "TEST";
                 LoadCharacters();
                 break;
             }
@@ -107,7 +116,7 @@ class Program
 
 
 
-    public static void InitializeNew()
+    public static void Begin()
     {
         Console.Clear();
         PS("What is your name?", 40);
@@ -118,16 +127,16 @@ class Program
         Console.Clear();
         Dialogue.BuildDialogue(Save.PlayerName);
         PS($"\"{Save.PlayerName}\"", 40);
-        Thread.Sleep(1000);
+        S(1000);
         PS("What an interesting name...", 40);
-        Thread.Sleep(1500);
+        S(1500);
         PS($"Well, {Save.PlayerName}, you better wake up.", 40);
-        Thread.Sleep(1500);
+        S(1500);
         PS($"You have things to do.", 40);
-        Thread.Sleep(1500);
+        S(1500);
         Console.Clear();
         Title();
-        Thread.Sleep(5000);
+        S(5000);
         Console.Clear();
         Bedroom.Start();
     }

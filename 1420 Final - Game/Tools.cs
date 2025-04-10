@@ -1,6 +1,7 @@
 ﻿using Horizon;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,12 +36,19 @@ namespace Horizon
         // Prints on line character by character, does not end on a new line
         public static void PLS(string line, int delay = 0, int speed = 1)
         {
-            foreach (char c in line)
+            if (Program.DebugMode == false)
             {
-                Console.Write(c);
-                Thread.Sleep(speed);
+                foreach (char c in line)
+                {
+                    Console.Write(c);
+                    Thread.Sleep(speed);
+                }
+                Thread.Sleep(delay);
             }
-            Thread.Sleep(delay);
+            else
+            {
+                Console.Write(line);
+            }
         }
 
         public static void D(Character character, int key)
@@ -60,14 +68,31 @@ namespace Horizon
 
         public static void PS(string line, int speed = 1)
         {
-            foreach (char c in line)
+            if (Program.DebugMode == false)
             {
-                Console.Write(c);
-                Thread.Sleep(speed);
+                foreach (char c in line)
+                {
+                    Console.Write(c);
+                    Thread.Sleep(speed);
+                }
+                Console.Write("\n");
             }
-            Console.Write("\n");
+            else
+            {
+                P(line);
+            }
         }
 
-
+        public static void S(int delay)
+        {
+            if (Program.DebugMode == true)
+            {
+                Thread.Sleep(0);
+            }
+            else
+            {
+                Thread.Sleep(delay);
+            }
+        }
     }
 }

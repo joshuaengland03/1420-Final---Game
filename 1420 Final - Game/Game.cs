@@ -7,8 +7,9 @@ using static Horizon.Tools;
 using Horizon;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.ComponentModel.Design;
 
-public class World
+public class Game
 {
     public static int ChoiceNumber { get; set; }
     public static Dictionary<int, string> Choices { get; set; } = new Dictionary<int, string>();
@@ -18,6 +19,49 @@ public class World
         { "S", "Save Game" },
         { "Q", "Quit" }
     };
+    #region CheckItem
+    public static bool CheckItem(int id)
+    {
+        foreach (var item in Save.Inventory)
+        {
+            if (item.Key == id)
+            {
+                return true;
+            }
+            else
+            {
+                continue;
+            }
+        }
+        return false;
+    }
+    #endregion
+    #region OpenInventory
+    public static void OpenInventory()
+    {
+        Console.Clear();
+        P(" ----- INVENTORY ----- ");
+        int i = 1;
+        foreach (var item in Save.Inventory)
+        {
+            if (item.Key > 0)
+            {
+                PS($"{i}: {item.Value}");
+                i++;
+            }
+        }
+        P("");
+        PS("Press E to exit Inventory");
+        while (true)
+        {
+            string input = Console.ReadLine().ToLower();
+            if (input == "e")
+            {
+                break;
+            }
+        }
+    }
+    #endregion
     #region Choose
     public static int Choose()
     {
@@ -74,20 +118,32 @@ public class World
         }
     }
     #endregion
+    #region SaveToFile
+    public static void SaveToFile()
+    {
+
+    }
+    #endregion
+    #region QuitGame
+    public static void QuitGame()
+    {
+
+    }
+    #endregion
 }
 #region Bedroom
-public class Bedroom : World
+public class Bedroom : Game
 {
     public static void Start()
     {
         DS(Program.Mom, 1, 40);
-        Thread.Sleep(1000);
+        S(1000);
         DS(Program.Mom, 2, 40);
-        Thread.Sleep(1000);
+        S(1000);
         DS(Program.Mom, 3, 40);
-        Thread.Sleep(1000);
+        S(1000);
         PS("- You get out of bed and get dressed.", 30);
-        Thread.Sleep(3000);
+        S(3000);
         Console.Clear();
     }
     public static void Run()
@@ -108,48 +164,72 @@ public class Bedroom : World
         switch (choice)
         {
             case 1:
-                PLS("- You try to open the drawer, ", 600, 30);
-                PS("but it's locked.", 30);
-                Thread.Sleep(2000);
+                if (CheckItem(1))
+                {
+                    PS("- You used SMALL KEY.", 30);
+                    Save.Inventory.Remove(1);
+                    S(1000);
+                    PS("- The drawer unlocked!", 30);
+                    S(1000);
+                    PS("- You find a locket.", 30);
+                    PLS("- It has a picture of you, ", 600, 30);
+                    PS("standing next to someone familiar.", 30);
+                    S(1500);
+                    PS("- You both look happy.", 30);
+                    S(1000);
+                    Save.Inventory.Add(2, "Locket");
+                    PS("(LOCKET added to inventory)");
+                    S(2000);
+                }
+                else
+                {
+                    PLS("- You try to open the drawer, ", 600, 30);
+                    PS("but it was locked.", 30);
+                    S(2000);
+                    break;
+                }
                 break;
             case 2:
                 PLS("- You look in the mirror. ", 600, 30);
                 PS("It's You!", 30);
-                Thread.Sleep(2000);
+                S(2000);
                 break;
             case 3:
-                // FIX, ENDS IN EXCEPTION ERROR
-                foreach (var item in Save.Inventory)
+                if (CheckItem(1))
                 {
-                    if (item.Key == 1)
-                    {
-                        PLS("- You look under the bed again, ", 600, 30);
-                        PS("but there was nothing", 30);
-                        break;
-                    }
-                    else
-                    {
-                        PS("- You look under the bed, and you find a small key.", 30);
-                        Thread.Sleep(500);
-                        Save.Inventory.Add(1, "Small Key");
-                        PS("(KEY added to inventory)");
-                        Thread.Sleep(2000);
-                    }
+                    PLS("- You look under the bed again, ", 600, 30);
+                    PS("but there was nothing", 30);
+                    S(2000);
+                    break;
+                }
+                else
+                {
+                    PLS("- You look under the bed, ", 600, 30);
+                    PS("and you find a small key.", 30);
+                    S(500);
+                    Save.Inventory.Add(1, "Small Key");
+                    PS("(SMALL KEY added to inventory)");
+                    S(2000);
                 }
                 break;
             case 4:
-                PLS("You check the clock, ", 600, 30);
+                PLS("- You check the clock, ", 600, 30);
                 PS("it's 00:00", 30);
-                Thread.Sleep(2000);
+                S(2000);
+                break;
+            case 5:
+                PS("You leave your Bedroom.", 30);
+                S(1000);
+                Save.Room = Room.LivingRoom;
                 break;
             case 11:
-
+                OpenInventory();
                 break;
             case 12:
-
+                SaveToFile();
                 break;
             case 13:
-
+                QuitGame();
                 break;
             default:
                 break;
@@ -159,33 +239,72 @@ public class Bedroom : World
 }
 #endregion 
 #region LivingRoom
-public class LivingRoom : World
+public class LivingRoom : Game
 {
     public static void Run()
     {
-        ChoiceNumber = 0;
+        ChoiceNumber = 6;
         Choices.Clear();
 
-        Choices.Add(1, "PLACEHOLDER");
-        Choices.Add(2, "PLACEHOLDER");
-        Choices.Add(3, "PLACEHOLDER");
-        Choices.Add(4, "PLACEHOLDER");
-        Choices.Add(5, "PLACEHOLDER");
-        Choices.Add(6, "PLACEHOLDER");
-        PS("- ", 30);
+        Choices.Add(1, "Enter the Bedroom");
+        Choices.Add(2, "Enter the Kitchen");
+        Choices.Add(3, "Turn on the TV");
+        Choices.Add(4, "Use the Bathroom");
+        Choices.Add(5, "Look around");
+        Choices.Add(6, "Leave the house");
+        PS("- You are in the Living Room", 30);
         P("");
         int choice = Choose();
         Console.Clear();
         switch (choice)
         {
             case 1:
-
+                PS("You enter your Bedroom.", 30);
+                S(1000);
+                Save.Room = Room.Bedroom;
                 break;
             case 2:
-
-                break;
+                if (Save.SchoolDone == false)
+                {
+                    PLS("- You walk to the Kitchen, ", 600, 30);
+                    PS("but your mom looks pretty busy.", 30);
+                    S(1000);
+                    PS("- You decide not to bother her.", 30);
+                    S(2000);
+                }
+                else
+                {
+                    PS("You enter the Kitchen.", 30);
+                    S(1000);
+                    Save.Room = Room.Bedroom;
+                }
+                    break;
             case 3:
-
+                if (Save.SchoolDone == false)
+                {
+                    bool tvTried = false;
+                    if (tvTried == false)
+                    {
+                        PS("- You turn on the TV.", 30);
+                        S(1000);
+                        DS(Program.Mom, 4, 40);
+                        S(1000);
+                        DS(Program.Mom, 5, 40);
+                        S(1000);
+                        PS("- You turn off the TV.", 30);
+                        S(2000);
+                        tvTried = true;
+                    }
+                    else if (tvTried == true)
+                    {
+                        PS("- Now is not the time for TV.", 30);
+                        S(2000);
+                    }
+                }
+                else
+                {
+                    PS("- You turn on the TV.", 30);
+                }
                 break;
             case 4:
 
@@ -207,7 +326,7 @@ public class LivingRoom : World
 }
 #endregion
 #region Kitchen
-public class Kitchen : World
+public class Kitchen : Game
 {
     public static void Run()
     {
@@ -255,7 +374,7 @@ public class Kitchen : World
 }
 #endregion
 #region Street
-public class Street : World
+public class Street : Game
 {
     public static void Run()
     {
@@ -303,7 +422,7 @@ public class Street : World
 }
 #endregion
 #region BusStop1
-public class BusStop1 : World
+public class BusStop1 : Game
 {
     public static void Run()
     {
@@ -351,7 +470,7 @@ public class BusStop1 : World
 }
 #endregion
 #region BusStop2
-public class BusStop2 : World
+public class BusStop2 : Game
 {
     public static void Run()
     {
@@ -399,7 +518,7 @@ public class BusStop2 : World
 }
 #endregion
 #region BusStop3
-public class BusStop3 : World
+public class BusStop3 : Game
 {
     public static void Run()
     {
@@ -447,7 +566,7 @@ public class BusStop3 : World
 }
 #endregion
 #region School
-public class School : World
+public class School : Game
 {
     public static void Run()
     {
@@ -495,7 +614,7 @@ public class School : World
 }
 #endregion
 #region Hallway
-public class Hallway : World
+public class Hallway : Game
 {
     public static void Run()
     {
@@ -543,7 +662,7 @@ public class Hallway : World
 }
 #endregion
 #region Arcade
-public class Arcade : World
+public class Arcade : Game
 {
     public static void Run()
     {
@@ -591,7 +710,7 @@ public class Arcade : World
 }
 #endregion
 #region Playground
-public class Playground : World
+public class Playground : Game
 {
     public static void Run()
     {
@@ -639,7 +758,7 @@ public class Playground : World
 }
 #endregion
 #region Unknown
-public class Unknown : World
+public class Unknown : Game
 {
     public static void Run()
     {
