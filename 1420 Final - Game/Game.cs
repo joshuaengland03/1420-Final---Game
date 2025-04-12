@@ -12,6 +12,7 @@ using System.ComponentModel.Design;
 public class Game
 {
     public static int ChoiceNumber { get; set; }
+    public static bool TVTried { get; set; }
     public static Dictionary<int, string> Choices { get; set; } = new Dictionary<int, string>();
     public static Dictionary<string, string> Options { get; set; } = new Dictionary<string, string>
     {
@@ -144,7 +145,8 @@ public class Bedroom : Game
         S(1000);
         PS("- You get out of bed and get dressed.", 30);
         S(3000);
-        Console.Clear();
+        Save.GamePhase = 1;
+        C();
     }
     public static void Run()
     {
@@ -160,7 +162,7 @@ public class Bedroom : Game
         PS("- You are in the Bedroom", 30);
         P("");
         int choice = Choose();
-        Console.Clear();
+        C();
         switch (choice)
         {
             case 1:
@@ -234,7 +236,7 @@ public class Bedroom : Game
             default:
                 break;
         }
-        Console.Clear();
+        C();
     }
 }
 #endregion 
@@ -255,7 +257,7 @@ public class LivingRoom : Game
         PS("- You are in the Living Room", 30);
         P("");
         int choice = Choose();
-        Console.Clear();
+        C();
         switch (choice)
         {
             case 1:
@@ -264,7 +266,7 @@ public class LivingRoom : Game
                 Save.Room = Room.Bedroom;
                 break;
             case 2:
-                if (Save.SchoolDone == false)
+                if (Save.GamePhase == 1)
                 {
                     PLS("- You walk to the Kitchen, ", 600, 30);
                     PS("but your mom looks pretty busy.", 30);
@@ -280,10 +282,9 @@ public class LivingRoom : Game
                 }
                     break;
             case 3:
-                if (Save.SchoolDone == false)
+                if (Save.GamePhase != 1)
                 {
-                    bool tvTried = false;
-                    if (tvTried == false)
+                    if (TVTried == false)
                     {
                         PS("- You turn on the TV.", 30);
                         S(1000);
@@ -293,9 +294,9 @@ public class LivingRoom : Game
                         S(1000);
                         PS("- You turn off the TV.", 30);
                         S(2000);
-                        tvTried = true;
+                        TVTried = true;
                     }
-                    else if (tvTried == true)
+                    else if (TVTried == true)
                     {
                         PS("- Now is not the time for TV.", 30);
                         S(2000);
@@ -321,7 +322,7 @@ public class LivingRoom : Game
             default:
                 break;
         }
-        Console.Clear();
+        C();
     }
 }
 #endregion

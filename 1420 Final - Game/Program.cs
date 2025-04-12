@@ -11,13 +11,13 @@ class Program
 {
     public static string FilePath = "C:/Users/joshua.england1/source/repos/1420 Final - Game/1420 Final - Game/save.json";
     public static Save Save = new Save();
-    public static bool DebugMode { get; set; }
+    public static int Mode { get; set; } // 0 - Normal, 1 - Debug, 2 - Test
     public static Character Mom;
     public static Character Player;
     public static void Main(string[] args)
     {
         string userInput = "";
-        DebugMode = false;
+        Mode = 0;
         // TODO: Load save file "File" from a json file if the user needs it to
         P("Would you like to start from a save point? (Y/N)");
         while (true)
@@ -37,28 +37,24 @@ class Program
             }
             else if (userInput == "d")
             {
-                Console.Clear();
-                DebugMode = true;
-                PS("DEBUG MODE ENABLED", 1);
-                Save.Room = Room.Bedroom;
-                Save.PlayerName = "DEBUG";
+                C();
+                Mode = 1;
+                InitializeVar();
                 LoadCharacters();
                 break;
             }
             else if (userInput == "t")
             {
-                Console.Clear();
-                PS("TEST MODE ENABLED", 1);
-                Save.Room = Room.Bedroom;
-                Save.PlayerName = "TEST";
+                Mode = 2;
+                C();
+                InitializeVar();
                 LoadCharacters();
                 break;
             }
             else if (userInput == "title")
             {
                 Title();
-                Save.Room = Room.Bedroom;
-                Save.PlayerName = "PlayerTest";
+                InitializeVar();
                 LoadCharacters();
                 break;
             }
@@ -118,13 +114,9 @@ class Program
 
     public static void Begin()
     {
-        Console.Clear();
-        PS("What is your name?", 40);
-        string input = Console.ReadLine();
-        Save.PlayerName = input;
-        Save.Room = Room.Bedroom;
+        C();
+        InitializeVar();
         LoadCharacters();
-        Console.Clear();
         Dialogue.BuildDialogue(Save.PlayerName);
         PS($"\"{Save.PlayerName}\"", 40);
         S(1000);
@@ -134,11 +126,22 @@ class Program
         S(1500);
         PS($"You have things to do.", 40);
         S(1500);
-        Console.Clear();
+        C();
         Title();
         S(5000);
-        Console.Clear();
+        C();
         Bedroom.Start();
+    }
+
+    public static void InitializeVar()
+    {
+        Save.GamePhase = 0;
+        PS("What is your name?", 40);
+        string input = Console.ReadLine();
+        Save.PlayerName = input;
+        Save.Room = Room.Bedroom;
+        Game.TVTried = false;
+        C();
     }
 
     public static void LoadCharacters()

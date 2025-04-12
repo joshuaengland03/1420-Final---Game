@@ -27,16 +27,14 @@ namespace Horizon
 
     public static class Tools
     {
-        // Prints and ends on a new line
         public static void P(string line)
         {
             Console.WriteLine(line);
         }
 
-        // Prints on line character by character, does not end on a new line
         public static void PLS(string line, int delay = 0, int speed = 1)
         {
-            if (Program.DebugMode == false)
+            if (Program.Mode != 1)
             {
                 foreach (char c in line)
                 {
@@ -68,7 +66,7 @@ namespace Horizon
 
         public static void PS(string line, int speed = 1)
         {
-            if (Program.DebugMode == false)
+            if (Program.Mode != 1)
             {
                 foreach (char c in line)
                 {
@@ -83,9 +81,29 @@ namespace Horizon
             }
         }
 
+        public static void C()
+        {
+            if (Program.Mode == 0)
+            {
+                Console.Clear();
+            }
+            else if (Program.Mode == 1)
+            {
+                Console.Clear();
+                P("DEBUG MODE ENABLED");
+                P("");
+            }
+            else if (Program.Mode == 2)
+            {
+                Console.Clear();
+                P("TEST MODE ENABLED");
+                P("");
+            }
+        }
+
         public static void S(int delay)
         {
-            if (Program.DebugMode == true)
+            if (Program.Mode == 1)
             {
                 Thread.Sleep(0);
             }
