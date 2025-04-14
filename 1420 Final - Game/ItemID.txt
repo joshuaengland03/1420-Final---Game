@@ -1,6 +1,6 @@
 0. Null (Unused)
 1. Small Key
-2. 
+2. Locket
 3. 
 4. 
 5. 

@@ -13,7 +13,8 @@ class Program
     public static Save Save = new Save();
     public static int Mode { get; set; } // 0 - Normal, 1 - Debug, 2 - Test
     public static Character Mom;
-    public static Character Player;
+    public static Character Default;
+    public static Character Mandy;
     public static void Main(string[] args)
     {
         string userInput = "";
@@ -31,6 +32,7 @@ class Program
             }
             else if (userInput == "n")
             {
+                C();
                 PS("Initializing...       ", 75);
                 Begin();
                 break;
@@ -135,7 +137,7 @@ class Program
 
     public static void InitializeVar()
     {
-        Save.GamePhase = 0;
+        Save.GamePhase = 1;
         PS("What is your name?", 40);
         string input = Console.ReadLine();
         Save.PlayerName = input;
@@ -146,8 +148,9 @@ class Program
 
     public static void LoadCharacters()
     {
+        Default = new Character("???", Save.PlayerName);
         Mom = new Character("Mom", Save.PlayerName);
-        Player = new Character("You", Save.PlayerName);
+        Mandy = new Character("Mandy", Save.PlayerName);
     }
 
     public static void LoadSave()

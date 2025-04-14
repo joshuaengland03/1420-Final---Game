@@ -145,7 +145,6 @@ public class Bedroom : Game
         S(1000);
         PS("- You get out of bed and get dressed.", 30);
         S(3000);
-        Save.GamePhase = 1;
         C();
     }
     public static void Run()
@@ -215,12 +214,15 @@ public class Bedroom : Game
                 }
                 break;
             case 4:
+                DateTime currentTime = DateTime.Now;
                 PLS("- You check the clock, ", 600, 30);
-                PS("it's 00:00", 30);
+                PS("it's " + currentTime.ToString("HH:mm tt"), 30);
+                S(1000);
+                PS("- The clock seems broken.", 30);
                 S(2000);
                 break;
             case 5:
-                PS("You leave your Bedroom.", 30);
+                PS("- You leave your Bedroom.", 30);
                 S(1000);
                 Save.Room = Room.LivingRoom;
                 break;
@@ -261,7 +263,7 @@ public class LivingRoom : Game
         switch (choice)
         {
             case 1:
-                PS("You enter your Bedroom.", 30);
+                PS("- You enter your Bedroom.", 30);
                 S(1000);
                 Save.Room = Room.Bedroom;
                 break;
@@ -276,13 +278,14 @@ public class LivingRoom : Game
                 }
                 else
                 {
-                    PS("You enter the Kitchen.", 30);
+                    PS("- You enter the Kitchen.", 30);
                     S(1000);
-                    Save.Room = Room.Bedroom;
+                    Save.Room = Room.Kitchen;
+                    // TODO
                 }
-                    break;
+                break;
             case 3:
-                if (Save.GamePhase != 1)
+                if (Save.GamePhase == 1)
                 {
                     if (TVTried == false)
                     {
@@ -305,19 +308,70 @@ public class LivingRoom : Game
                 else
                 {
                     PS("- You turn on the TV.", 30);
+                    // TODO
                 }
                 break;
             case 4:
-
+                if (Save.GamePhase == 1)
+                {
+                    PS("- You knock on the Bathroom door.", 30);
+                    S(1000);
+                    PS("- It seems like your older sister Mandy is inside.", 30);
+                    S(1000);
+                    PS("- You hear her favorite artist Dustin Reeber's music playing through the door.", 30);
+                    S(1000);
+                    DS(Program.Mandy, 1, 40);
+                    S(1000);
+                    DS(Program.Mandy, 2, 40);
+                    S(1000);
+                    PS("- You should've used the Bathroom earlier.", 30);
+                    S(2000);
+                }
+                else
+                {
+                    PS("- You feel no need to enter the Bathroom.", 30);
+                }
+                    break;
+            case 5:
+                PS("- You look around the living room.", 30);
+                S(1000);
+                PS("- There are various family photos from years past.", 30);
+                S(1000);
+                PLS("- However, ", 600, 30);
+                PS("there seems to be something missing.", 30);
+                S(1000);
+                PS("- You see yourself, your mom, and your sister in each photo.", 30);
+                S(1000);
+                PS("- Yet something about the photos seems sad.", 30);
+                S(2000);
                 break;
+            case 6:
+                if (Save.GamePhase == 1)
+                {
+                    PS("- You open the door to go to school.", 30);
+                    S(1000);
+                    DS(Program.Mom, 6, 40);
+                    S(1000);
+                    DS(Program.Mom, 7, 40);
+                    S(1000);
+                    PS("- You leave the House.", 30);
+                    S(2000);
+                    Save.Room = Room.Street;
+                }
+                else
+                {
+                    PS("- You leave the House.");
+                    Save.Room = Room.Street;
+                }
+                    break;
             case 11:
-
+                OpenInventory();
                 break;
             case 12:
-
+                SaveToFile();
                 break;
             case 13:
-
+                QuitGame();
                 break;
             default:
                 break;
@@ -379,27 +433,72 @@ public class Street : Game
 {
     public static void Run()
     {
-        ChoiceNumber = 0;
+        if (Save.GamePhase == 1)
+        {
+            ChoiceNumber = 3;
+        }
+        else
+        {
+            ChoiceNumber = 4;
+        }
         Choices.Clear();
 
-        Choices.Add(1, "PLACEHOLDER");
-        Choices.Add(2, "PLACEHOLDER");
-        Choices.Add(3, "PLACEHOLDER");
-        Choices.Add(4, "PLACEHOLDER");
-        Choices.Add(5, "PLACEHOLDER");
-        Choices.Add(6, "PLACEHOLDER");
-        PS("- ", 30);
+        Choices.Add(1, "Enter your house");
+        Choices.Add(2, "Look around");
+        Choices.Add(3, "Go to the bus stop");
+        Choices.Add(4, "Inspect strange building");
+        PS("- You stand outside on your street", 30);
         P("");
         int choice = Choose();
         Console.Clear();
         switch (choice)
         {
             case 1:
+                if (Save.GamePhase == 1)
+                {
+                    PS("- You shouldn't go home right now.", 30);
+                    S(1000);
+                    PS("- You don't want to be late for school.", 30);
+                    S(2000);
+                }
+                else
+                {
 
-                break;
+                }
+                    break;
             case 2:
-
-                break;
+                if (Save.GamePhase == 1)
+                {
+                    PS("- You look around.", 30);
+                    S(1000);
+                    PS("- All you see are vacant lots where buildings once existed.", 30);
+                    S(1000);
+                    PS("- And your house of course.", 30);
+                    S(1000);
+                    PS("- Not much else to see.", 30);
+                    S(2000);
+                }
+                else if (Save.GamePhase == 2)
+                {
+                    PS("- You look around.", 30);
+                    S(1000);
+                    PS("- All you see are vacant lots where buildings once existed.", 30);
+                    S(1000);
+                    PS("- And your house of course.", 30);
+                    S(1000);
+                    PS("- Wait, was that large building there before?", 30);
+                    S(2000);
+                }
+                else
+                {
+                    PS("- You look around.", 30);
+                    S(1000);
+                    PS("- You see your house, and the large mysterious building.", 30);
+                    S(1000);
+                    PS("- You swear that it wasn't there before.", 30);
+                    S(2000);
+                }
+                    break;
             case 3:
 
                 break;
@@ -407,13 +506,13 @@ public class Street : Game
 
                 break;
             case 11:
-
+                OpenInventory();
                 break;
             case 12:
-
+                SaveToFile();
                 break;
             case 13:
-
+                QuitGame();
                 break;
             default:
                 break;

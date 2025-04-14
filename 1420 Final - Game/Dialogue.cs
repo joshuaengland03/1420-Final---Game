@@ -22,7 +22,7 @@ namespace Horizon
                 { 4, "Honey! You need to get to school!" },
                 { 5, "Turn off the TV or you'll be late!" },
                 { 6, $"Bye {name}!" },
-                { 7, "Have a great day!" },
+                { 7, "Have a great day at school!" },
                 { 8, "" },
                 { 9, "" },
                 { 10, "" },
@@ -34,12 +34,20 @@ namespace Horizon
                 { 16, "" },
             };
 
-            Dialogues["You"] = new Dictionary<int, string>
+            Dialogues["???"] = new Dictionary<int, string>
             {
                 { 1, "Hi!" },
                 { 2, "How are you?" },
                 { 3, "That's Great!" },
                 { 4, "Awesome!" }
+            };
+
+            Dialogues["Mandy"] = new Dictionary<int, string>
+            {
+                { 1, $"{name}! Leave me alone!" },
+                { 2, "I need to get ready too, you know!" },
+                { 3, "" },
+                { 4, "" },
             };
         }
 
