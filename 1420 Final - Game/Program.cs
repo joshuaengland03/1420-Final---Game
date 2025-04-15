@@ -9,8 +9,8 @@ using Horizon;
 
 class Program
 {
-    public static string FilePath = "C:/Users/joshua.england1/source/repos/1420 Final - Game/1420 Final - Game/save.json";
-    public static Save Save = new Save();
+    public static string FilePath = "save.json";
+    public static Save SaveFile = new Save();
     public static int Mode { get; set; } // 0 - Normal, 1 - Debug, 2 - Test
     public static Character Mom;
     public static Character Default;
@@ -28,6 +28,8 @@ class Program
             {
                 LoadSave();
                 PS("Loading Done");
+                S(1000);
+                C();
                 break;
             }
             else if (userInput == "n")
@@ -66,7 +68,7 @@ class Program
 
         while (true)
         {
-            switch (Save.Room)
+            switch (SaveFile.Room)
             {
                 case Room.Bedroom:
                     Bedroom.Run();
@@ -119,12 +121,12 @@ class Program
         C();
         InitializeVar();
         LoadCharacters();
-        Dialogue.BuildDialogue(Save.PlayerName);
-        PS($"\"{Save.PlayerName}\"", 40);
+        Dialogue.BuildDialogue(SaveFile.PlayerName);
+        PS($"\"{SaveFile.PlayerName}\"", 40);
         S(1000);
         PS("What an interesting name...", 40);
         S(1500);
-        PS($"Well, {Save.PlayerName}, you better wake up.", 40);
+        PS($"Well, {SaveFile.PlayerName}, you better wake up.", 40);
         S(1500);
         PS($"You have things to do.", 40);
         S(1500);
@@ -137,26 +139,37 @@ class Program
 
     public static void InitializeVar()
     {
-        Save.GamePhase = 1;
+        SaveFile.GamePhase = 1;
         PS("What is your name?", 40);
         string input = Console.ReadLine();
-        Save.PlayerName = input;
-        Save.Room = Room.Bedroom;
+        SaveFile.PlayerName = input;
+        SaveFile.Room = Room.Bedroom;
         Game.TVTried = false;
         C();
     }
 
     public static void LoadCharacters()
     {
-        Default = new Character("???", Save.PlayerName);
-        Mom = new Character("Mom", Save.PlayerName);
-        Mandy = new Character("Mandy", Save.PlayerName);
+        Default = new Character("???", SaveFile.PlayerName);
+        Mom = new Character("Mom", SaveFile.PlayerName);
+        Mandy = new Character("Mandy", SaveFile.PlayerName);
     }
 
     public static void LoadSave()
     {
-        PS("Loading from file...");
-        string jsonString = File.ReadAllText(FilePath);
+        if (!File.Exists(FilePath))
+        {
+            PS("Save data does not exist.");
+            S(1000);
+            PS("Initializing new file...       ", 75);
+            Begin();
+        }
+        else
+        {
+            PS("Loading from file...");
+            string jsonString = File.ReadAllText(FilePath);
+            SaveFile = JsonSerializer.Deserialize<Save>(jsonString);
+        }
     }
 
     public static void Title()

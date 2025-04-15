@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Horizon.Tools;
+using static Program;
 using Horizon;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.ComponentModel.Design;
+using System.Text.Json;
 
 public class Game
 {
@@ -23,7 +25,7 @@ public class Game
     #region CheckItem
     public static bool CheckItem(int id)
     {
-        foreach (var item in Save.Inventory)
+        foreach (var item in SaveFile.Inventory)
         {
             if (item.Key == id)
             {
@@ -43,7 +45,7 @@ public class Game
         Console.Clear();
         P(" ----- INVENTORY ----- ");
         int i = 1;
-        foreach (var item in Save.Inventory)
+        foreach (var item in SaveFile.Inventory)
         {
             if (item.Key > 0)
             {
@@ -122,8 +124,28 @@ public class Game
     #region SaveToFile
     public static void SaveToFile()
     {
-
+        if (!File.Exists(FilePath))
+        {
+            File.Create(FilePath).Close();
+        }
+        try
+        {
+            string jsonString = JsonSerializer.Serialize(SaveFile, new JsonSerializerOptions{WriteIndented = true});
+            File.WriteAllText(FilePath, jsonString);
+            PS("Game saved successfully!", 30);
+            S(1000);
+        }
+        catch (Exception ex)
+        {
+            PS($"Error saving game: {ex.Message}", 30);
+        }
     }
+
+
+
+
+
+
     #endregion
     #region QuitGame
     public static void QuitGame()
@@ -137,11 +159,11 @@ public class Bedroom : Game
 {
     public static void Start()
     {
-        DS(Program.Mom, 1, 40);
+        DS(Mom, 1, 40);
         S(1000);
-        DS(Program.Mom, 2, 40);
+        DS(Mom, 2, 40);
         S(1000);
-        DS(Program.Mom, 3, 40);
+        DS(Mom, 3, 40);
         S(1000);
         PS("- You get out of bed and get dressed.", 30);
         S(3000);
@@ -168,7 +190,7 @@ public class Bedroom : Game
                 if (CheckItem(1))
                 {
                     PS("- You used SMALL KEY.", 30);
-                    Save.Inventory.Remove(1);
+                    SaveFile.Inventory.Remove(1);
                     S(1000);
                     PS("- The drawer unlocked!", 30);
                     S(1000);
@@ -178,7 +200,7 @@ public class Bedroom : Game
                     S(1500);
                     PS("- You both look happy.", 30);
                     S(1000);
-                    Save.Inventory.Add(2, "Locket");
+                    SaveFile.Inventory.Add(2, "Locket");
                     PS("(LOCKET added to inventory)");
                     S(2000);
                 }
@@ -208,7 +230,7 @@ public class Bedroom : Game
                     PLS("- You look under the bed, ", 600, 30);
                     PS("and you find a small key.", 30);
                     S(500);
-                    Save.Inventory.Add(1, "Small Key");
+                    SaveFile.Inventory.Add(1, "Small Key");
                     PS("(SMALL KEY added to inventory)");
                     S(2000);
                 }
@@ -224,7 +246,7 @@ public class Bedroom : Game
             case 5:
                 PS("- You leave your Bedroom.", 30);
                 S(1000);
-                Save.Room = Room.LivingRoom;
+                SaveFile.Room = Room.LivingRoom;
                 break;
             case 11:
                 OpenInventory();
@@ -265,10 +287,10 @@ public class LivingRoom : Game
             case 1:
                 PS("- You enter your Bedroom.", 30);
                 S(1000);
-                Save.Room = Room.Bedroom;
+                SaveFile.Room = Room.Bedroom;
                 break;
             case 2:
-                if (Save.GamePhase == 1)
+                if (SaveFile.GamePhase == 1)
                 {
                     PLS("- You walk to the Kitchen, ", 600, 30);
                     PS("but your mom looks pretty busy.", 30);
@@ -280,20 +302,20 @@ public class LivingRoom : Game
                 {
                     PS("- You enter the Kitchen.", 30);
                     S(1000);
-                    Save.Room = Room.Kitchen;
+                    SaveFile.Room = Room.Kitchen;
                     // TODO
                 }
                 break;
             case 3:
-                if (Save.GamePhase == 1)
+                if (SaveFile.GamePhase == 1)
                 {
                     if (TVTried == false)
                     {
                         PS("- You turn on the TV.", 30);
                         S(1000);
-                        DS(Program.Mom, 4, 40);
+                        DS(Mom, 4, 40);
                         S(1000);
-                        DS(Program.Mom, 5, 40);
+                        DS(Mom, 5, 40);
                         S(1000);
                         PS("- You turn off the TV.", 30);
                         S(2000);
@@ -312,7 +334,7 @@ public class LivingRoom : Game
                 }
                 break;
             case 4:
-                if (Save.GamePhase == 1)
+                if (SaveFile.GamePhase == 1)
                 {
                     PS("- You knock on the Bathroom door.", 30);
                     S(1000);
@@ -320,9 +342,9 @@ public class LivingRoom : Game
                     S(1000);
                     PS("- You hear her favorite artist Dustin Reeber's music playing through the door.", 30);
                     S(1000);
-                    DS(Program.Mandy, 1, 40);
+                    DS(Mandy, 1, 40);
                     S(1000);
-                    DS(Program.Mandy, 2, 40);
+                    DS(Mandy, 2, 40);
                     S(1000);
                     PS("- You should've used the Bathroom earlier.", 30);
                     S(2000);
@@ -346,22 +368,22 @@ public class LivingRoom : Game
                 S(2000);
                 break;
             case 6:
-                if (Save.GamePhase == 1)
+                if (SaveFile.GamePhase == 1)
                 {
                     PS("- You open the door to go to school.", 30);
                     S(1000);
-                    DS(Program.Mom, 6, 40);
+                    DS(Mom, 6, 40);
                     S(1000);
-                    DS(Program.Mom, 7, 40);
+                    DS(Mom, 7, 40);
                     S(1000);
                     PS("- You leave the House.", 30);
                     S(2000);
-                    Save.Room = Room.Street;
+                    SaveFile.Room = Room.Street;
                 }
                 else
                 {
                     PS("- You leave the House.");
-                    Save.Room = Room.Street;
+                    SaveFile.Room = Room.Street;
                 }
                     break;
             case 11:
@@ -433,7 +455,7 @@ public class Street : Game
 {
     public static void Run()
     {
-        if (Save.GamePhase == 1)
+        if (SaveFile.GamePhase == 1)
         {
             ChoiceNumber = 3;
         }
@@ -454,7 +476,7 @@ public class Street : Game
         switch (choice)
         {
             case 1:
-                if (Save.GamePhase == 1)
+                if (SaveFile.GamePhase == 1)
                 {
                     PS("- You shouldn't go home right now.", 30);
                     S(1000);
@@ -467,7 +489,7 @@ public class Street : Game
                 }
                     break;
             case 2:
-                if (Save.GamePhase == 1)
+                if (SaveFile.GamePhase == 1)
                 {
                     PS("- You look around.", 30);
                     S(1000);
@@ -478,7 +500,7 @@ public class Street : Game
                     PS("- Not much else to see.", 30);
                     S(2000);
                 }
-                else if (Save.GamePhase == 2)
+                else if (SaveFile.GamePhase == 2)
                 {
                     PS("- You look around.", 30);
                     S(1000);

@@ -9,16 +9,13 @@ namespace Horizon
     public class Save
     {
         public string PlayerName { get; set; }
-        public static Room Room { get; set; }
+        public Room Room { get; set; }
         public int Stars { get; set; }
-        public static int GamePhase { get; set; }
-        public static Dictionary<int, string> Inventory = new Dictionary<int, string>()
+        public int GamePhase { get; set; }
+        public Dictionary<int, string> Inventory { get; set; } = new Dictionary<int, string>()
         {
             { 0, "null" }
         };
-
-
-
 
         public Save
             (
