@@ -113,7 +113,7 @@ class Program
         }
     }
 
-
+    //TODO FIX CHARACTER BUILDING WHEN LOADING
 
 
     public static void Begin()
@@ -144,6 +144,8 @@ class Program
         string input = Console.ReadLine();
         SaveFile.PlayerName = input;
         SaveFile.Room = Room.Bedroom;
+        SaveFile.BedChecked = false;
+        SaveFile.DrawerOpened = false;
         Game.TVTried = false;
         C();
     }
@@ -169,6 +171,7 @@ class Program
             PS("Loading from file...");
             string jsonString = File.ReadAllText(FilePath);
             SaveFile = JsonSerializer.Deserialize<Save>(jsonString);
+            LoadCharacters();
         }
     }
 

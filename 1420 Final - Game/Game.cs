@@ -141,16 +141,33 @@ public class Game
         }
     }
 
-
-
-
-
-
     #endregion
     #region QuitGame
     public static void QuitGame()
     {
+        P("------- Quit -------");
+        P("");
+        PS("1. Save and Quit");
+        PS("2. Quit without Saving");
+        PS("3. Back");
 
+        while (true)
+        {
+            string input = Console.ReadLine().ToLower();
+            if (input == "1")
+            {
+                SaveToFile();
+                Environment.Exit(1);
+            }
+            else if (input == "2")
+            {
+                Environment.Exit(1);
+            }
+            else if (input == "3")
+            {
+                break;
+            }
+        }
     }
     #endregion
 }
@@ -180,47 +197,57 @@ public class Bedroom : Game
         Choices.Add(4, "Check the clock");
         Choices.Add(5, "Leave the room");
         Choices.Add(6, "BUG, SHOULD NOT APPEAR");
-        PS("- You are in the Bedroom", 30);
+        PS("- You are in the Bedroom");
         P("");
         int choice = Choose();
         C();
         switch (choice)
         {
             case 1:
-                if (CheckItem(1))
+                if (SaveFile.DrawerOpened == false)
                 {
-                    PS("- You used SMALL KEY.", 30);
-                    SaveFile.Inventory.Remove(1);
-                    S(1000);
-                    PS("- The drawer unlocked!", 30);
-                    S(1000);
-                    PS("- You find a locket.", 30);
-                    PLS("- It has a picture of you, ", 600, 30);
-                    PS("standing next to someone familiar.", 30);
-                    S(1500);
-                    PS("- You both look happy.", 30);
-                    S(1000);
-                    SaveFile.Inventory.Add(2, "Locket");
-                    PS("(LOCKET added to inventory)");
-                    S(2000);
+                    if (CheckItem(1))
+                    {
+                        PS("- You used SMALL KEY.", 30);
+                        SaveFile.Inventory.Remove(1);
+                        S(1000);
+                        PS("- The drawer unlocked!", 30);
+                        S(1000);
+                        PS("- You find a locket.", 30);
+                        PLS("- It has a picture of you, ", 600, 30);
+                        PS("standing next to someone familiar.", 30);
+                        S(1500);
+                        PS("- You both look happy.", 30);
+                        S(1000);
+                        SaveFile.Inventory.Add(2, "Locket");
+                        SaveFile.DrawerOpened = true;
+                        PS("(LOCKET added to inventory)");
+                        S(2000);
+                    }
+                    else
+                    {
+                        PLS("- You try to open the drawer, ", 600, 30);
+                        PS("but it was locked.", 30);
+                        S(2000);
+                        break;
+                    }
                 }
                 else
                 {
-                    PLS("- You try to open the drawer, ", 600, 30);
-                    PS("but it was locked.", 30);
+                    PLS("- You opened the drawer, ", 600, 30);
+                    PS("but it was empty.", 30);
                     S(2000);
-                    break;
                 }
-                break;
+                    break;
             case 2:
                 PLS("- You look in the mirror. ", 600, 30);
                 PS("It's You!", 30);
                 S(2000);
                 break;
             case 3:
-                if (CheckItem(1))
+                if (SaveFile.BedChecked == true)
                 {
-                    PLS("- You look under the bed again, ", 600, 30);
+                    PLS("- You look under the bed, ", 600, 30);
                     PS("but there was nothing", 30);
                     S(2000);
                     break;
@@ -231,6 +258,7 @@ public class Bedroom : Game
                     PS("and you find a small key.", 30);
                     S(500);
                     SaveFile.Inventory.Add(1, "Small Key");
+                    SaveFile.BedChecked = true;
                     PS("(SMALL KEY added to inventory)");
                     S(2000);
                 }
@@ -240,7 +268,7 @@ public class Bedroom : Game
                 PLS("- You check the clock, ", 600, 30);
                 PS("it's " + currentTime.ToString("HH:mm tt"), 30);
                 S(1000);
-                PS("- The clock seems broken.", 30);
+                PS("- The clock seems to be broken.", 30);
                 S(2000);
                 break;
             case 5:
@@ -278,7 +306,7 @@ public class LivingRoom : Game
         Choices.Add(4, "Use the Bathroom");
         Choices.Add(5, "Look around");
         Choices.Add(6, "Leave the house");
-        PS("- You are in the Living Room", 30);
+        PS("- You are in the Living Room");
         P("");
         int choice = Choose();
         C();
@@ -303,7 +331,7 @@ public class LivingRoom : Game
                     PS("- You enter the Kitchen.", 30);
                     S(1000);
                     SaveFile.Room = Room.Kitchen;
-                    // TODO
+                    //TODO
                 }
                 break;
             case 3:
@@ -330,7 +358,7 @@ public class LivingRoom : Game
                 else
                 {
                     PS("- You turn on the TV.", 30);
-                    // TODO
+                    //TODO
                 }
                 break;
             case 4:
@@ -416,7 +444,7 @@ public class Kitchen : Game
         Choices.Add(4, "PLACEHOLDER");
         Choices.Add(5, "PLACEHOLDER");
         Choices.Add(6, "PLACEHOLDER");
-        PS("- ", 30);
+        PS("- You are in your Kitchen");
         P("");
         int choice = Choose();
         Console.Clear();
@@ -469,7 +497,7 @@ public class Street : Game
         Choices.Add(2, "Look around");
         Choices.Add(3, "Go to the bus stop");
         Choices.Add(4, "Inspect strange building");
-        PS("- You stand outside on your street", 30);
+        PS("- You stand outside on your street");
         P("");
         int choice = Choose();
         Console.Clear();
@@ -485,7 +513,9 @@ public class Street : Game
                 }
                 else
                 {
-
+                    PS("- You enter your house", 30);
+                    S(2000);
+                    SaveFile.Room = Room.LivingRoom;
                 }
                     break;
             case 2:
@@ -522,10 +552,12 @@ public class Street : Game
                 }
                     break;
             case 3:
-
+                PS("- You walk to the bus stop", 30);
+                S(2000);
+                SaveFile.Room = Room.BusStop1;
                 break;
             case 4:
-
+                //TODO
                 break;
             case 11:
                 OpenInventory();
@@ -548,41 +580,99 @@ public class BusStop1 : Game
 {
     public static void Run()
     {
-        ChoiceNumber = 0;
+        ChoiceNumber = 6;
         Choices.Clear();
 
-        Choices.Add(1, "PLACEHOLDER");
-        Choices.Add(2, "PLACEHOLDER");
-        Choices.Add(3, "PLACEHOLDER");
-        Choices.Add(4, "PLACEHOLDER");
-        Choices.Add(5, "PLACEHOLDER");
-        Choices.Add(6, "PLACEHOLDER");
-        PS("- ", 30);
+        Choices.Add(1, "Walk to your street");
+        Choices.Add(2, "Check bus routes");
+        Choices.Add(3, "Wait for bus G32");
+        Choices.Add(4, "Wait for bus F04");
+        Choices.Add(5, "Look at advertisements");
+        Choices.Add(6, "Read newspaper");
+        PS("- You are at Bus Stop #1");
         P("");
         int choice = Choose();
         Console.Clear();
         switch (choice)
         {
             case 1:
-
-                break;
+                if (SaveFile.GamePhase == 1)
+                {
+                    PS("- Now is not the time to go back.", 30);
+                    S(1000);
+                    PS("- You don't want to miss the bus.", 30);
+                    S(2000);
+                }
+                else
+                {
+                    PS("- You walk to your street", 30);
+                    S(2000);
+                    SaveFile.Room = Room.Street;
+                }
+                    break;
             case 2:
-
+                PS("--- Bus Routes ---");
+                PS("Bus G32 - Arcade, Commercial District");
+                PS("Bus F04 - Hawkins Middle School");
+                if (SaveFile.GamePhase == 1)
+                {
+                    PS("Bus E73 - Residential District (You are Here!)");
+                }
+                else if (SaveFile.GamePhase == 2)
+                {
+                    PS("Bus E73 - Residential District, [REDACTED] (You are Here!)");
+                }
+                else
+                {
+                    PS("Bus E73 - Residential District, Horizon Labs (You are Here!)");
+                }
+                P("");
+                PS("Press 'E' to exit");
+                while (true)
+                {
+                    string input = Console.ReadLine().ToLower();
+                    if (input == "e")
+                    {
+                        break;
+                    }
+                }
                 break;
             case 3:
-
-                break;
+                if (SaveFile.GamePhase == 1)
+                {
+                    PS("- You don't have time to go to the arcade yet.", 30);
+                    S(2000);
+                }
+                else
+                {
+                    PS("- You decide to wait for bus G32.", 30);
+                    PS("..........", 700);
+                    PLS("- The bus arrives, ", 600, 30);
+                    PS("and you enter.", 30);
+                    S(2000);
+                    SaveFile.Room = Room.BusStop3;
+                }
+                    break;
             case 4:
-
+                PS("- You decide to wait for bus F04.", 30);
+                PS("..........", 700);
+                PLS("- The bus arrives, ", 600, 30);
+                PS("and you enter.", 30);
+                S(2000);
+                SaveFile.Room = Room.BusStop2;
+                break;
+            case 5:
+                break;
+            case 6:
                 break;
             case 11:
-
+                OpenInventory();
                 break;
             case 12:
-
+                SaveToFile();
                 break;
             case 13:
-
+                QuitGame();
                 break;
             default:
                 break;
@@ -596,7 +686,7 @@ public class BusStop2 : Game
 {
     public static void Run()
     {
-        ChoiceNumber = 0;
+        ChoiceNumber = 6;
         Choices.Clear();
 
         Choices.Add(1, "PLACEHOLDER");
@@ -644,7 +734,7 @@ public class BusStop3 : Game
 {
     public static void Run()
     {
-        ChoiceNumber = 0;
+        ChoiceNumber = 6;
         Choices.Clear();
 
         Choices.Add(1, "PLACEHOLDER");
