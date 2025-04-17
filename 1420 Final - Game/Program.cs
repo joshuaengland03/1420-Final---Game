@@ -15,11 +15,11 @@ class Program
     public static Character Mom;
     public static Character Default;
     public static Character Mandy;
+    public static Character Finn;
     public static void Main(string[] args)
     {
         string userInput = "";
         Mode = 0;
-        // TODO: Load save file "File" from a json file if the user needs it to
         P("Would you like to start from a save point? (Y/N)");
         while (true)
         {
@@ -35,7 +35,8 @@ class Program
             else if (userInput == "n")
             {
                 C();
-                PS("Initializing...       ", 75);
+                PS("Initializing...", 120);
+                S(1000);
                 Begin();
                 break;
             }
@@ -112,10 +113,6 @@ class Program
             }
         }
     }
-
-    //TODO FIX CHARACTER BUILDING WHEN LOADING
-
-
     public static void Begin()
     {
         C();
@@ -155,6 +152,7 @@ class Program
         Default = new Character("???", SaveFile.PlayerName);
         Mom = new Character("Mom", SaveFile.PlayerName);
         Mandy = new Character("Mandy", SaveFile.PlayerName);
+        Finn = new Character("Finn", SaveFile.PlayerName);
     }
 
     public static void LoadSave()
@@ -163,7 +161,8 @@ class Program
         {
             PS("Save data does not exist.");
             S(1000);
-            PS("Initializing new file...       ", 75);
+            PS("Initializing new file...", 100);
+            S(1000);
             Begin();
         }
         else

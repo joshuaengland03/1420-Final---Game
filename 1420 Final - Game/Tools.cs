@@ -27,12 +27,12 @@ namespace Horizon
 
     public static class Tools
     {
-        public static void P(string line)
+        public static void P(string line = "")
         {
             Console.WriteLine(line);
         }
 
-        public static void PLS(string line, int delay = 0, int speed = 1)
+        public static void PLS(string line = "", int delay = 0, int speed = 1)
         {
             if (Program.Mode != 1)
             {
@@ -64,7 +64,7 @@ namespace Horizon
             PS($"{character.CDialogue[key]}", speed);
         }
 
-        public static void PS(string line, int speed = 1)
+        public static void PS(string line = "", int speed = 7)
         {
             if (Program.Mode != 1)
             {
@@ -86,15 +86,18 @@ namespace Horizon
             if (Program.Mode == 0)
             {
                 Console.Clear();
+                Console.Clear();
             }
             else if (Program.Mode == 1)
             {
+                Console.Clear();
                 Console.Clear();
                 P("DEBUG MODE ENABLED");
                 P("");
             }
             else if (Program.Mode == 2)
             {
+                Console.Clear();
                 Console.Clear();
                 P("TEST MODE ENABLED");
                 P("");
@@ -112,5 +115,50 @@ namespace Horizon
                 Thread.Sleep(delay);
             }
         }
+        public static void Newspaper()
+        {
+            P("_____________________________________________________________________________________________");
+            P("|                                                            Sunday, August 30, 2011        |");
+            P("|    _____ _            ______      _ _          _____                               _      |");
+            P("|   |_   _| |           |  _  \\    (_) |        |_   _|                             | |     |");
+            P("|     | | | |__   ___   | | | |__ _ _| |_   _     | |_ __ _   _ _ __ ___  _ __   ___| |_    |");
+            P("|     | | | '_ \\ / _ \\  | | | / _` | | | | | |    | | '__| | | | '_ ` _ \\| '_ \\ / _ \\ __|   |");
+            P("|     | | | | | |  __/  | |/ / (_| | | | |_| |    | | |  | |_| | | | | | | |_) |  __/ |_    |");
+            P("|     \\_/ |_| |_|\\___|  |___/ \\__,_|_|_|\\__, |    \\_/_|   \\__,_|_| |_| |_| .__/ \\___|\\__|   |");
+            P("|                                        __/ |                           | |                |");
+            P("|                                       |___/                            |_|                |");
+            P("|___________________________________________________________________________________________|");
+            P("|                     |                                               |                     |");
+            P("|     : :.:-..::.:..  |   Missing Scientist at local laboratory       |     :. ..-: =-:. +  |");
+            P("|  :::: :.:-..::.:..  |   By Marissa Klein                            |  .:  . ..::.:..     |");
+            P("|  ..-:. ..-: =-:. +  |                                               |  := .=:...=.-. . :  |");
+            P("|  := .=:...=.-. . :  |   Officials at ####### ####, a private        |  ..::..   ::::- ::  |");
+            P("|  ..::..   ::::- ::  |   research facility located in Rockwell,      |  :::: :.:-..::.:..  |");
+            P("|  :::: :.:-..::.:..  |   Idaho, have confirmed that a staff member   |  .:  . ..::.:..     |");
+            P("|  .:  . ..::.:..     |   is currently unaccounted for following      |  ..-:. ..-: =-:. +  |");
+            P("|  ..-:. ..-: =-:. +  |   what they describe as an “internal          |  ::+: :.:-..::.:..  |");
+            P("|  ::+: :.:-..::.:..  |   procedural anomaly” late Tuesday evening.   |                     |");
+            P("|     :-_.: :+:  --:  |                                               |     .=:...=.-. . :  |");
+            P("|  := .=:...=.-. . :  |   The individual, identified as Dr. Evan      |  :::: :.:-..::.:..  |");
+            P("|  .:  . ..::.:..     |   Michaels, was last seen conducting          |  ..-:. ..-: =-:. +  |");
+            P("|  ..-:. ..-: =-:. +  |   routine diagnostics in one of the lab’s     |  ::+: :.:-..::.:..  |");
+            P("|  ::+: :.:-..::.:..  |   specialized research areas. According       |                     |");
+            P("|                     |   to ####### representatives, standard        |     :-..::.:..=_:.  |");
+            P("|     :-..::.:..=_:   |   safety protocols were in place at the       |  .:  . ..::.:..  +  |");
+            P("|  .:  . ..::.:..     |   time, and there is currently no             |  =-: :.:-..:=:.:..  |");
+            P("|  '. :-_.: :=:- --:  |   indication of foul play. However, this is   |  := .=:...=.-. . :  |");
+            P("|_____________________|_______________________________________________|_____________________|");
+            P("");
+            PS("Press 'E' to exit");
+            while (true)
+            {
+                string input = Console.ReadLine().ToLower();
+                if (input == "e")
+                {
+                    break;
+                }
+            }
+        }
     }
+
 }

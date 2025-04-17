@@ -1,3 +1,12 @@
 {
-
+  "PlayerName": "Josh",
+  "Room": 4,
+  "Stars": 0,
+  "GamePhase": 1,
+  "BedChecked": true,
+  "DrawerOpened": true,
+  "Inventory": {
+    "0": "null",
+    "2": "Locket"
+  }
 }

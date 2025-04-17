@@ -37,9 +37,9 @@ namespace Horizon
             Dialogues["???"] = new Dictionary<int, string>
             {
                 { 1, "Hi!" },
-                { 2, "How are you?" },
-                { 3, "That's Great!" },
-                { 4, "Awesome!" }
+                { 2, "I'm new around here." },
+                { 3, "Nice to meet you!" },
+                { 4, "My name is Finn." }
             };
 
             Dialogues["Mandy"] = new Dictionary<int, string>
@@ -48,6 +48,13 @@ namespace Horizon
                 { 2, "I need to get ready too, you know!" },
                 { 3, "" },
                 { 4, "" },
+            };
+
+            Dialogues["Finn"] = new Dictionary<int, string>
+            {
+                { 1, "" },
+                { 2, ""},
+                { 3, ""},
             };
         }
 

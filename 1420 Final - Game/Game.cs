@@ -214,11 +214,11 @@ public class Bedroom : Game
                         PS("- The drawer unlocked!", 30);
                         S(1000);
                         PS("- You find a locket.", 30);
-                        PLS("- It has a picture of you, ", 600, 30);
-                        PS("standing next to someone familiar.", 30);
+                        PLS("- It has a picture of you as a baby, ", 600, 30);
+                        PS("with someone familiar.", 30);
                         S(1500);
                         PS("- You both look happy.", 30);
-                        S(1000);
+                        S(2000);
                         SaveFile.Inventory.Add(2, "Locket");
                         SaveFile.DrawerOpened = true;
                         PS("(LOCKET added to inventory)");
@@ -598,7 +598,7 @@ public class BusStop1 : Game
             case 1:
                 if (SaveFile.GamePhase == 1)
                 {
-                    PS("- Now is not the time to go back.", 30);
+                    PS("You can't go back now.", 40);
                     S(1000);
                     PS("- You don't want to miss the bus.", 30);
                     S(2000);
@@ -613,7 +613,7 @@ public class BusStop1 : Game
             case 2:
                 PS("--- Bus Routes ---");
                 PS("Bus G32 - Arcade, Commercial District");
-                PS("Bus F04 - Hawkins Middle School");
+                PS("Bus F04 - Rockwell Middle School");
                 if (SaveFile.GamePhase == 1)
                 {
                     PS("Bus E73 - Residential District (You are Here!)");
@@ -662,8 +662,26 @@ public class BusStop1 : Game
                 SaveFile.Room = Room.BusStop2;
                 break;
             case 5:
+                PS("- You look at the advertisements.", 30);
+                S(1000); 
+                PS("*   NEW - JOAN'S BBQ & FOOT MASSAGE   *");
+                PS("*    GET RICH QUICK - SUMMER SALES    *");
+                PS("*   CALL FOR A GOOD TIME - 555-8008   *");
+                S(2000);
+                PS("- Not much to see.", 30);
+                S(2000);
                 break;
             case 6:
+                PS("- You pick up a newspaper.", 30);
+                S(1500);
+                Newspaper();
+                C();
+                PS("- That's strange.", 30);
+                S(1000);
+                PS("- It's dated months after you were born.", 30);
+                S(1000);
+                PS("- What's a newspaper so old doing here?", 30);
+                S(2000);
                 break;
             case 11:
                 OpenInventory();
@@ -689,13 +707,13 @@ public class BusStop2 : Game
         ChoiceNumber = 6;
         Choices.Clear();
 
-        Choices.Add(1, "PLACEHOLDER");
-        Choices.Add(2, "PLACEHOLDER");
+        Choices.Add(1, "Walk to School");
+        Choices.Add(2, "Check bus routes");
         Choices.Add(3, "PLACEHOLDER");
         Choices.Add(4, "PLACEHOLDER");
-        Choices.Add(5, "PLACEHOLDER");
+        Choices.Add(5, "Look at advertisements");
         Choices.Add(6, "PLACEHOLDER");
-        PS("- ", 30);
+        PS("- You are at Bus Stop #1", 30);
         P("");
         int choice = Choose();
         Console.Clear();
