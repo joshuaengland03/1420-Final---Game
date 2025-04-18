@@ -14,6 +14,7 @@ namespace Horizon
         public int GamePhase { get; set; }
         public bool BedChecked { get; set; }
         public bool DrawerOpened { get; set; }
+        public int PapersChecked { get; set; }
         public Dictionary<int, string> Inventory { get; set; } = new Dictionary<int, string>()
         {
             { 0, "null" }
@@ -27,7 +28,8 @@ namespace Horizon
             Dictionary<int, string> inventory,
             int gamePhase,
             bool bedChecked,
-            bool drawerOpened
+            bool drawerOpened,
+            int papersChecked
             )
 
         {
@@ -38,7 +40,8 @@ namespace Horizon
             GamePhase = gamePhase;
             BedChecked = bedChecked;
             DrawerOpened = drawerOpened;
-        }
+            PapersChecked = papersChecked;
+         }
 
         public Save()
         {

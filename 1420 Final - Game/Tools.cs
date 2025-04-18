@@ -1,10 +1,15 @@
-﻿using Horizon;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Horizon.Tools;
+using static Program;
+using Horizon;
+using System.Diagnostics;
+using System.Linq.Expressions;
+using System.ComponentModel.Design;
+using System.Text.Json;
 
 namespace Horizon
 {
@@ -157,6 +162,24 @@ namespace Horizon
                 {
                     break;
                 }
+            }
+            C();
+            if (SaveFile.PapersChecked == 0)
+            {
+                PS("- That's strange.", 30);
+                S(1000);
+                PS("- It's dated months after you were born.", 30);
+                S(1000);
+                PS("- What's a newspaper so old doing here?", 30);
+                S(2000);
+                SaveFile.PapersChecked += 1;
+            }
+            else if (SaveFile.PapersChecked == 1)
+            {
+                PS("- It's that same paper.", 30);
+                S(1000);
+                PS("- Why is it here?", 30);
+                S(2000);
             }
         }
     }

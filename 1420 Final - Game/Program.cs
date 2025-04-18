@@ -16,6 +16,7 @@ class Program
     public static Character Default;
     public static Character Mandy;
     public static Character Finn;
+    public static Character Doodle;
     public static void Main(string[] args)
     {
         string userInput = "";
@@ -93,7 +94,14 @@ class Program
                     BusStop3.Run();
                     break;
                 case Room.School:
-                    School.Run();
+                    if (SaveFile.GamePhase == 1)
+                    {
+                        School.Start();
+                    }
+                    else
+                    {
+                        School.Run();
+                    }
                     break;
                 case Room.Hallway:
                     Hallway.Run();
@@ -143,6 +151,7 @@ class Program
         SaveFile.Room = Room.Bedroom;
         SaveFile.BedChecked = false;
         SaveFile.DrawerOpened = false;
+        SaveFile.PapersChecked = 0;
         Game.TVTried = false;
         C();
     }
@@ -153,6 +162,7 @@ class Program
         Mom = new Character("Mom", SaveFile.PlayerName);
         Mandy = new Character("Mandy", SaveFile.PlayerName);
         Finn = new Character("Finn", SaveFile.PlayerName);
+        Doodle = new Character("Mr. Doodle", SaveFile.PlayerName);
     }
 
     public static void LoadSave()
