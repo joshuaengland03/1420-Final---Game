@@ -10,12 +10,12 @@ namespace Horizon
     public class Character
     {
         public string Name { get; set; }
-        public Dictionary<int, string> CDialogue { get; set; }
+        public Dictionary<int, string> CharacterDialogue { get; set; }
 
         public Character(string name, string playerName)
         {
             Name = name;
-            CDialogue = Dialogue.GetDialogue(name, playerName);
+            CharacterDialogue = Dialogue.GetDialogue(name, playerName);
         }
     }
 }
