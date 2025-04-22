@@ -17,7 +17,7 @@ class Program
     public static Character Mandy;
     public static Character Finn;
     public static Character Doodle;
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         string userInput = "";
         Mode = 0;
@@ -60,8 +60,8 @@ class Program
             else if (userInput == "title")
             {
                 Title();
-                InitializeVar();
-                LoadCharacters();
+                S(5000);
+                Environment.Exit(0);
                 break;
             }
             P("Invalid Input. Please type 'Y' or 'N'");
@@ -153,6 +153,7 @@ class Program
         SaveFile.DrawerOpened = false;
         SaveFile.PapersChecked = 0;
         Game.TVTried = false;
+        Game.TVOn = false;
         C();
     }
 

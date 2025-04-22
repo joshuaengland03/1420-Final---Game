@@ -55,14 +55,15 @@ namespace Horizon
                 { 1, "My name is Finn." },
                 { 2, "Hey, I never asked." },
                 { 3, "What is your name?" },
-                { 2, $"{name}? Awesome!" },
-                { 3, "Hey, do you want to play a game?" },
-                { 2, "It's called Higher & Lower!" },
-                { 3, "I'm going to choose a number " },
-                { 2, "" },
-                { 3, "" },
-                { 2, "" },
-                { 3, "" },
+                { 4, $"{name}? Awesome!" },
+                { 5, "Hey, do you want to play a game?" },
+                { 6, "It's simple." },
+                { 7, "You just need to write as much as you can in 10 seconds!" },
+                { 8, "If you do better than me, I will give you a prize!" },
+                { 9, "Ready?" },
+                { 10, "Go!" },
+                { 11, "That's ok, we can do it later!" },
+                { 12, "Awesome!" }
             };
 
             Dialogues["Mr. Doodle"] = new Dictionary<int, string>
@@ -70,8 +71,8 @@ namespace Horizon
                 { 1, "Welcome Class!" },
                 { 2, "Everyone find your seats." },
                 { 3, "Today, we are going to start... " },
-                { 4, "" },
-                { 5, "" },
+                { 4, "You are all free to leave." },
+                { 5, "You can stay behind if you need to work on something." },
                 { 6, "" },
                 { 7, "" },
                 { 8, "" }

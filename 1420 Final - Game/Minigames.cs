@@ -13,7 +13,7 @@ using System.Text.Json;
 
 public class Minigames
 {
-    public async Task StartAsync()
+    public async Task TypeGame()
     {
         Console.WriteLine("Type as many letters as you can in 10 seconds!");
         Console.WriteLine("Go!");
@@ -42,12 +42,12 @@ public class Minigames
         Console.WriteLine($"\nTime's up! You typed {inputs.Count} letters.");
 
         if (inputs.Count >= 50)
-            Console.WriteLine("🏆 You earned a Gold Medal!");
+            Console.WriteLine("");
         else if (inputs.Count >= 30)
-            Console.WriteLine("🥈 You earned a Silver Medal!");
+            Console.WriteLine("");
         else if (inputs.Count >= 10)
-            Console.WriteLine("🥉 You earned a Bronze Medal!");
+            Console.WriteLine("");
         else
-            Console.WriteLine("😅 Better luck next time!");
+            Console.WriteLine("");
     }
 }
