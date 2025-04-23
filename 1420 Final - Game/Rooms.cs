@@ -740,7 +740,12 @@ public class BusStop3 : Game
 #region School
 public class School : Game
 {
-    public static void Start()
+    public static async Task TypeGame()
+    {
+        var reflex = new Minigame();
+        await reflex.PlayAsync();
+    }
+    public static async Task Start()
     {
         PS("- You enter the classroom and find your desk.", 30);
         S(1000);
@@ -786,7 +791,7 @@ public class School : Game
             if (userInput == "y")
             {
                 C();
-                //TODO TYPING GAME
+                await TypeGame();
                 break;
             }
             else if (userInput == "n")
@@ -808,7 +813,7 @@ public class School : Game
         C();
 
     }
-    public static void Run()
+    public static async Task Run()
     {
         ChoiceNumber = 5;
         Choices.Clear();
@@ -826,7 +831,7 @@ public class School : Game
         switch (choice)
         {
             case 1:
-                //TODO TYPING GAME
+                await TypeGame();
                 break;
             case 2:
                 PS("- You look around the classroom.", 30);

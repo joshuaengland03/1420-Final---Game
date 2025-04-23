@@ -11,43 +11,47 @@ using System.Linq.Expressions;
 using System.ComponentModel.Design;
 using System.Text.Json;
 
-public class Minigames
+public class Minigame
 {
-    public async Task TypeGame()
+    public async Task PlayAsync()
     {
-        Console.WriteLine("Type as many letters as you can in 10 seconds!");
-        Console.WriteLine("Go!");
+        PS("Reflex Minigame!");
+        PS("Wait for 'GO!' then press ENTER as fast as you can.");
+        PS("Press ENTER to start...");
+        Console.ReadLine();
 
-        var inputs = new List<char>();
+        await RunReflexTestAsync();
+    }
+    private async Task RunReflexTestAsync()
+    {
+        var random = new Random();
+        int delay = random.Next(2000, 5000);
+
+        PS("Get ready...");
+        await Task.Delay(delay);
+
+        Console.WriteLine("GO!");
+
         var stopwatch = Stopwatch.StartNew();
-
-        var inputTask = Task.Run(() =>
-        {
-            while (stopwatch.Elapsed < TimeSpan.FromSeconds(10))
-            {
-                if (Console.KeyAvailable)
-                {
-                    var key = Console.ReadKey(true).KeyChar;
-                    if (char.IsLetter(key))
-                    {
-                        inputs.Add(key);
-                    }
-                }
-            }
-        });
-
-        await Task.Delay(10000);
+        Console.ReadLine();
         stopwatch.Stop();
 
-        Console.WriteLine($"\nTime's up! You typed {inputs.Count} letters.");
-
-        if (inputs.Count >= 50)
-            Console.WriteLine("");
-        else if (inputs.Count >= 30)
-            Console.WriteLine("");
-        else if (inputs.Count >= 10)
-            Console.WriteLine("");
+        PS($"Your reaction time: {stopwatch.ElapsedMilliseconds} milliseconds");
+        S(1000);
+        ShowPrize(stopwatch.ElapsedMilliseconds);
+    }
+    private void ShowPrize(long ms)
+    {
+        if (ms < 200)
+            PS("You are the Fastest!");
+        else if (ms < 350)
+            PS("Hey, You're pretty fast!");
+        else if (ms < 600)
+            PS("Not bad!");
         else
-            Console.WriteLine("");
+            PS("You can do better than that!");
+
+        PS("Press ENTER to finish.");
+        Console.ReadLine();
     }
 }

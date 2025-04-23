@@ -96,11 +96,11 @@ class Program
                 case Room.School:
                     if (SaveFile.GamePhase == 1)
                     {
-                        School.Start();
+                        await School.Start();
                     }
                     else
                     {
-                        School.Run();
+                        await School.Run();
                     }
                     break;
                 case Room.Hallway:
@@ -121,6 +121,9 @@ class Program
             }
         }
     }
+
+
+
     public static void Begin()
     {
         C();

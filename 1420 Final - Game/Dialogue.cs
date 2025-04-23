@@ -58,12 +58,14 @@ namespace Horizon
                 { 4, $"{name}? Awesome!" },
                 { 5, "Hey, do you want to play a game?" },
                 { 6, "It's simple." },
-                { 7, "You just need to write as much as you can in 10 seconds!" },
+                { 7, "You just need to be really quick!" },
                 { 8, "If you do better than me, I will give you a prize!" },
                 { 9, "Ready?" },
                 { 10, "Go!" },
                 { 11, "That's ok, we can do it later!" },
-                { 12, "Awesome!" }
+                { 12, "Awesome!" },
+                { 13, "My record is 200ms." },
+                { 14, "I'll use my stopwatch to time you!" }
             };
 
             Dialogues["Mr. Doodle"] = new Dictionary<int, string>

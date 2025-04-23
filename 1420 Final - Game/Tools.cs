@@ -56,17 +56,17 @@ namespace Horizon
 
         public static void D(Character character, int key)
         {
-            P($"{character.Name}: {character.CDialogue[key]}");
+            P($"{character.Name}: {character.CharacterDialogue[key]}");
         }
 
         public static void DS(Character character, int key, int speed = 1)
         {
-            PS($"{character.Name}: {character.CDialogue[key]}", speed);
+            PS($"{character.Name}: {character.CharacterDialogue[key]}", speed);
         }
 
         public static void NDS(Character character, int key, int speed = 1)
         {
-            PS($"{character.CDialogue[key]}", speed);
+            PS($"{character.CharacterDialogue[key]}", speed);
         }
 
         public static void PS(string line = "", int speed = 7)
