@@ -155,6 +155,8 @@ class Program
         SaveFile.BedChecked = false;
         SaveFile.DrawerOpened = false;
         SaveFile.PapersChecked = 0;
+        SaveFile.ReflexWon = false;
+        SaveFile.DemoFinished = false;
         Game.TVTried = false;
         Game.TVOn = false;
         C();

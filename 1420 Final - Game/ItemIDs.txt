@@ -1,11 +1,13 @@
+INVENTORY ITEM ID'S
+
 0. Null (Unused)
 1. Small Key
 2. Locket
 3. Bronze Star (1 minigame)
-4. Silver Star (2 minigames)
-5. Gold Star (3 minigames)
+4. Silver Star (2 minigames) [FULL GAME]
+5. Gold Star (3 minigames) [FULL GAME]
 6. Roll of Tape 
-7. Pencil
+7. Pencil [FULL GAME]
 
 
 
@@ -14,8 +16,8 @@
 
 
 Stars earned:
-Typing Game - School
-Battle Game - Playground
-Fixing/Finding something - Arcade
+Reflex Game - School
+Battle Game - Playground [FULL GAME]
+Fixing/Finding something - Arcade [FULL GAME]
 
-Gold star + Locket unlock Laboratory
+Gold star + Locket unlock Laboratory [FULL GAME]

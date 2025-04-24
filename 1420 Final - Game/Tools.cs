@@ -144,8 +144,8 @@ namespace Horizon
             P("|  ..-:. ..-: =-:. +  |   what they describe as an “internal          |  ::+: :.:-..::.:..  |");
             P("|  ::+: :.:-..::.:..  |   procedural anomaly” late Tuesday evening.   |                     |");
             P("|     :-_.: :+:  --:  |                                               |     .=:...=.-. . :  |");
-            P("|  := .=:...=.-. . :  |   The individual, identified as Dr. Evan      |  :::: :.:-..::.:..  |");
-            P("|  .:  . ..::.:..     |   Michaels, was last seen conducting          |  ..-:. ..-: =-:. +  |");
+            P("|  := .=:...=.-. . :  |   The individual, identified as Dr. ####      |  :::: :.:-..::.:..  |");
+            P("|  .:  . ..::.:..     |   ########, was last seen conducting          |  ..-:. ..-: =-:. +  |");
             P("|  ..-:. ..-: =-:. +  |   routine diagnostics in one of the lab’s     |  ::+: :.:-..::.:..  |");
             P("|  ::+: :.:-..::.:..  |   specialized research areas. According       |                     |");
             P("|                     |   to ####### representatives, standard        |     :-..::.:..=_:.  |");

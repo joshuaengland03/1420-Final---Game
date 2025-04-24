@@ -62,7 +62,7 @@ namespace Horizon
                 { 8, "If you do better than me, I will give you a prize!" },
                 { 9, "Ready?" },
                 { 10, "Go!" },
-                { 11, "That's ok, we can do it later!" },
+                { 11, "That's ok, we can always do it later!" },
                 { 12, "Awesome!" },
                 { 13, "My record is 200ms." },
                 { 14, "I'll use my stopwatch to time you!" }

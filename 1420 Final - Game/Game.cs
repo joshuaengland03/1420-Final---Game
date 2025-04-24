@@ -158,11 +158,11 @@ public class Game
             if (input == "1")
             {
                 SaveToFile();
-                Environment.Exit(1);
+                Environment.Exit(0);
             }
             else if (input == "2")
             {
-                Environment.Exit(1);
+                Environment.Exit(0);
             }
             else if (input == "3")
             {
